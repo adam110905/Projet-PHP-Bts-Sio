@@ -1,0 +1,899 @@
+/* Comportement de défilement fluide pour tout le site */
+body, html {
+    scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   Base & Reset - Normalisation des éléments de base
+   ========================================================================== */
+
+/* Suppression des flèches de contrôle pour les inputs numériques */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* ==========================================================================
+   Animations & Keyframes - Définition des animations réutilisables
+   ========================================================================== */
+
+@keyframes fadeIn {
+    from { opacity: 0; } /* Apparition progressive */
+    to { opacity: 1; }
+}
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(50px); /* Entrée par le bas */
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-50px); /* Entrée par la gauche */
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(50px); /* Entrée par la droite */
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9); /* Effet de zoom à l'entrée */
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes floatingAnimation {
+    0% { transform: translateY(0px); } /* Animation flottante verticale */
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* ==========================================================================
+   Navigation & Header - Barre de navigation et menu mobile
+   ========================================================================== */
+
+/* Navbar principale avec dégradé d'opacité */
+.gradient-nav {
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    transition: all 0.3s ease;
+}
+
+.gradient-nav.scrolled {
+    background: rgba(17, 24, 39, 0.95); /* Fond opaque au défilement */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.gradient-nav {
+    background: linear-gradient(to bottom, rgba(17, 24, 39, 0.95), rgba(17, 24, 39, 0.8));
+    backdrop-filter: blur(10px);
+}
+
+/* Liens de navigation avec effet de soulignement au survol */
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #F59E0B;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Bouton hamburger mobile avec animation */
+#mobile-menu-button {
+    transition: all 0.3s ease;
+}
+
+#mobile-menu-button:hover {
+    transform: scale(1.1);
+}
+
+#mobile-menu-button:active {
+    transform: scale(0.95);
+}
+
+/* Menu mobile avec animation d'apparition */
+.mobile-menu {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 40;
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(75, 85, 99, 0.3);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu:not(.hidden) {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mobile-menu a {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.mobile-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+    transform: translateX(5px); /* Décalage des liens au survol */
+}
+
+.menu-backdrop {
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+/* Overlay pour le menu mobile */
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 30;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#menu-overlay:not(.hidden),
+#menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================================================
+   Hero Section - Section d'accueil principale avec animations séquentielles
+   ========================================================================== */
+
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    animation: fadeIn 1s ease-out;
+}
+
+.hero-section h1 {
+    animation: slideInFromBottom 1s ease-out 0.2s both; /* Animation séquentielle du titre */
+}
+
+.hero-section p {
+    animation: slideInFromBottom 1s ease-out 0.4s both; /* Animation séquentielle du texte */
+}
+
+.hero-section .cta-button {
+    animation: slideInFromBottom 1s ease-out 0.6s both; /* Animation séquentielle du bouton */
+}
+
+/* ==========================================================================
+   Expertise Section - Cartes d'expertise avec effets
+   ========================================================================== */
+
+.expertise-section {
+    background: linear-gradient(to bottom, #111827, #1f2937);
+}
+
+.expertise-card {
+    background: rgba(31, 41, 55, 0.5); /* Effet glassmorphism */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideInFromBottom 0.6s ease-out forwards;
+}
+
+.expertise-card:nth-child(1) { animation-delay: 0.1s; } /* Animation séquentielle des cartes */
+.expertise-card:nth-child(2) { animation-delay: 0.2s; }
+.expertise-card:nth-child(3) { animation-delay: 0.3s; }
+.expertise-card:nth-child(4) { animation-delay: 0.4s; }
+
+.expertise-card:hover {
+    transform: translateY(-10px); /* Élévation au survol */
+    border-color: rgba(234, 179, 8, 0.5);
+}
+
+.expertise-card .icon-container {
+    animation: floatingAnimation 3s ease-in-out infinite; /* Animation flottante des icônes */
+}
+
+/* ==========================================================================
+   Services Carousel - Carrousel de services avec Swiper
+   ========================================================================== */
+
+.services-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.swiper {
+    width: 100%;
+    padding: 3rem 0;
+}
+
+.swiper-slide {
+    width: 380px;
+    height: 520px;
+}
+
+.service-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 41, 59, 0.8); /* Effet glassmorphism */
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateZ(0);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(12px);
+}
+
+.service-card:hover {
+    transform: translateY(-10px); /* Élévation au survol */
+    box-shadow: 0 25px 60px -12px rgba(234, 179, 8, 0.3);
+    border-color: rgba(234, 179, 8, 0.5);
+}
+
+.service-image {
+    width: 100%;
+    height: 65%;
+    object-fit: cover;
+    transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover .service-image {
+    height: 35%; /* Réduit la taille de l'image au survol pour montrer plus de contenu */
+    filter: brightness(0.7);
+}
+
+.service-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8));
+    transform: translateY(75%); /* Contenu partiellement caché */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover .service-content {
+    transform: translateY(0); /* Révèle le contenu complet au survol */
+}
+
+.icon-circle {
+    background: rgba(234, 179, 8, 0.9);
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover .icon-circle {
+    transform: scale(1.1); /* Agrandit l'icône au survol */
+}
+
+.service-button {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.service-card:hover .service-button {
+    opacity: 1; /* Affiche le bouton au survol */
+    transform: translateY(0);
+}
+
+.glass-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    pointer-events: none;
+}
+
+/* Navigation du Swiper personnalisée */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #EAB308;
+    background: rgba(255, 255, 255, 0.1);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: rgba(234, 179, 8, 0.2);
+    transform: scale(1.1); /* Agrandit les boutons au survol */
+}
+
+.swiper-pagination-bullet {
+    background: #EAB308;
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+    transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    width: 30px; /* Bullet active plus large */
+    border-radius: 5px;
+}
+
+/* ==========================================================================
+   Portfolio - Grille de projets avec animations
+   ========================================================================== */
+
+.portfolio-card {
+    position: relative;
+    overflow: hidden;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideInFromBottom 0.6s ease-out forwards;
+}
+
+.portfolio-card:hover img {
+    transform: scale(1.1); /* Zoom sur l'image au survol */
+}
+
+.portfolio-card img {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-card .overlay {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.4s ease;
+}
+
+.portfolio-card:hover .overlay {
+    opacity: 1; /* Affiche l'overlay au survol */
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Formulaire de Contact - Animations des champs de formulaire
+   ========================================================================== */
+
+.contact-form-container {
+    animation: scaleIn 0.8s ease-out;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+    transform: translateY(-2px); /* Légère élévation au focus */
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1);
+}
+
+/* ==========================================================================
+   Partenaires - Logos des partenaires avec animations
+   ========================================================================== */
+
+.partner-logo {
+    opacity: 0.5;
+    transition: all 0.4s ease;
+}
+
+.partner-logo:hover {
+    opacity: 1; /* Logo plus visible au survol */
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   Carousel - Carousel personnalisé
+   ========================================================================== */
+
+.carousel-container {
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+}
+
+.carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%); /* Dégradé pour texte lisible */
+    color: white;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgb(234, 179, 8);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-button:hover {
+    background-color: rgb(202, 138, 4);
+    transform: translateY(-50%) scale(1.1); /* Agrandit les boutons au survol */
+}
+
+.slide-indicator {
+    height: 0.375rem;
+    width: 2rem;
+    border-radius: 9999px;
+    background-color: rgb(75, 85, 99);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.slide-indicator.active {
+    width: 3.5rem; /* Indicateur actif plus large */
+    background-color: rgb(234, 179, 8);
+}
+
+/* ==========================================================================
+   Notifications - Système de notifications
+   ========================================================================== */
+
+.notification {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* ==========================================================================
+   Footer - Pied de page
+   ========================================================================== */
+
+.footer {
+    background: linear-gradient(to bottom, #111827, #0f172a);
+}
+
+/* ==========================================================================
+   Media Queries - Adaptations aux différents écrans
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* Carousel adapté aux tablettes */
+    .carousel-container {
+        height: 400px;
+    }
+    
+    .carousel-button {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-overlay {
+        padding: 1.5rem;
+    }
+    
+    /* Ajuste la taille du texte pour les noms d'utilisateur longs */
+    .md\:hidden .bg-yellow-500 {
+        font-size: 0.875rem;
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Texte tronqué avec ... */
+        transition: all 0.3s ease;
+    }
+    
+    .md\:hidden .bg-yellow-500:active {
+        transform: scale(0.95);
+    }
+}
+
+@media (max-width: 375px) {
+    .md\:hidden .bg-yellow-500 {
+        max-width: 90px;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* Styles essentiels pour corriger les problèmes visuels de la navbar et de l'overlay */
+
+/* Base pour la navbar - applique l'effet de dégradé et la transition */
+.gradient-nav {
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    transition: all 0.3s ease;
+    z-index: 50;
+}
+
+.gradient-nav.scrolled {
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu mobile - paramètres de positionnement et transition */
+.mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 40;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(75, 85, 99, 0.3);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu:not(.hidden) {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Overlay du menu mobile - fond semi-transparent avec flou */
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 30;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+}
+
+#menu-overlay:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Style pour le bouton burger - animations au clic */
+#mobile-menu-button {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#mobile-menu-button:hover {
+    transform: scale(1.1);
+}
+
+#mobile-menu-button:active {
+    transform: scale(0.95);
+}
+
+/* Styles pour les popups et modales */
+#orderHistoryModal {
+    transition: opacity 0.3s ease-in-out;
+}
+
+#orderHistoryModal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#orderHistoryModal:not(.hidden) {
+    opacity: 1;
+}
+
+/* Styles pour les inputs numériques - supprime les flèches */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Effets hover pour boutons gris */
+.bg-gray-700:hover {
+    background-color: rgba(75, 85, 99, 0.8);
+}
+
+/* Notifications - transitions douces */
+.notification {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Styles spécifiques pour la page produit.php */
+
+/* Base pour la navbar (même que pour panier.php) */
+.gradient-nav {
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    transition: all 0.3s ease;
+    z-index: 50;
+}
+
+.gradient-nav.scrolled {
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu mobile - essentiel pour les transitions */
+.mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 40;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(75, 85, 99, 0.3);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu:not(.hidden) {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Overlay du menu mobile */
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 30;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+}
+
+#menu-overlay:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Styles spécifiques aux cartes de produits */
+.product-card {
+    background: rgba(31, 41, 55, 0.7); /* Fond semi-transparent */
+    border: 1px solid rgba(75, 85, 99, 0.5);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.product-card:hover {
+    transform: translateY(-5px) !important; /* Surcharge d'élévation au survol */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.product-image {
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05); /* Léger zoom sur l'image au survol */
+}
+
+/* Badge de catégorie - étiquette colorée sur les produits */
+.product-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: rgba(245, 158, 11, 0.95);
+    color: #000;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Contrôles de quantité - pour ajuster la quantité de produits */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    background-color: rgba(31, 41, 55, 0.8);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(75, 85, 99, 0.5);
+}
+
+.quantity-btn {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(17, 24, 39, 0.8);
+    color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.quantity-btn:hover {
+    background-color: rgba(245, 158, 11, 0.7); /* Couleur dorée au survol */
+}
+
+.quantity-btn:active {
+    transform: scale(0.95); /* Effet d'appui */
+}
+
+.quantity-input {
+    width: 2.5rem;
+    height: 2rem;
+    background-color: transparent;
+    border: none;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
+
+.quantity-input:focus {
+    outline: none;
+}
+
+/* Bouton principal - style dégradé avec animation */
+.button-primary {
+    background: linear-gradient(45deg, #f59e0b, #fbbf24);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(254, 243, 199, 0.1);
+}
+
+.button-primary:hover {
+    background: linear-gradient(45deg, #d97706, #f59e0b); /* Dégradé plus foncé au survol */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.button-primary:active {
+    transform: translateY(0);
+}
+
+/* Panneau de recherche et filtres - effet glassmorphism */
+.glass-panel {
+    background: rgba(31, 41, 55, 0.7);
+    border: 1px solid rgba(75, 85, 99, 0.5);
+    border-radius: 0.75rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Animation de coupure de texte - limite à 2 lignes */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Modifications pour les petits écrans */
+@media (max-width: 768px) {
+    .product-card {
+        transform: translateY(10px);
+    }
+    
+    .quantity-control {
+        flex: 1; /* Prend toute la largeur disponible */
+    }
+}

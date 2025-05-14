@@ -1,0 +1,195 @@
+/* Styles globaux - thème sombre avec fond bleu foncé */
+body {
+    background-color: #0f172a; /* Fond bleu foncé */
+    color: #e2e8f0; /* Texte gris clair */
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+/* Carte de produit - effet glassmorphism avec animation d'élévation */
+.product-card {
+    transition: all 0.3s ease;
+    background: linear-gradient(145deg, #1e293b, #172032); /* Dégradé bleu foncé */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure blanche semi-transparente */
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Élévation au survol */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Ombre portée */
+    border-color: rgba(245, 158, 11, 0.5); /* Bordure dorée */
+}
+
+/* Badge de panier - indicateur du nombre d'articles en cercle */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #f59e0b; /* Fond doré */
+    color: #000; /* Texte noir */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* Notifications - transitions douces pour apparition/disparition */
+.notification {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Boutons et formulaires - style interactif */
+.button-primary {
+    background: linear-gradient(135deg, #f59e0b, #d97706); /* Dégradé doré */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button-primary:hover {
+    transform: translateY(-2px); /* Légère élévation au survol */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+}
+
+.form-input {
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure blanche subtile */
+    background-color: rgba(30, 41, 59, 0.5); /* Fond semi-transparent */
+}
+
+.form-input:focus {
+    border-color: #f59e0b; /* Bordure dorée au focus */
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3); /* Halo doré */
+    outline: none;
+}
+
+/* Contrôle de quantité - interface pour ajuster les quantités de produits */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgba(30, 41, 59, 0.8); /* Fond foncé semi-transparent */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quantity-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(15, 23, 42, 0.8); /* Plus foncé que le conteneur */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quantity-btn:hover {
+    background-color: rgba(245, 158, 11, 0.8); /* Fond doré au survol */
+    color: #000; /* Texte noir pour contraste */
+}
+
+.quantity-input {
+    width: 40px;
+    background: transparent;
+    border: none;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Style des sections - en-têtes et panneaux avec effet verre */
+.section-header {
+    background: linear-gradient(to right, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8)); /* Dégradé horizontal */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel {
+    background: rgba(30, 41, 59, 0.6); /* Fond semi-transparent */
+    border-radius: 16px;
+    backdrop-filter: blur(10px); /* Effet de flou derrière */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations - définition de l'animation de fondu */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); } /* Commence invisible et décalé vers le bas */
+    to { opacity: 1; transform: translateY(0); } /* Termine visible et à la position normale */
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Suppression des flèches pour inputs numériques */
+/* Pour Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Pour Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Badge produit - étiquette de catégorie ou statut */
+.product-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: rgba(245, 158, 11, 0.9); /* Fond doré semi-transparent */
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet de survol sur les images - léger zoom */
+.product-image {
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05); /* Agrandissement de 5% au survol */
+}
+
+/* Footer - pied de page avec dégradé */
+.footer {
+    background: linear-gradient(135deg, #1e293b, #0f172a); /* Dégradé diagonal */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animation d'entrée pour les cartes */
+.product-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Hover effect sur les cards */
+.bg-gray-700:hover {
+    background-color: rgba(75, 85, 99, 0.8);
+}
+
+/* Animation de badge panier */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.cart-badge {
+    animation: pulse 2s infinite;
+}

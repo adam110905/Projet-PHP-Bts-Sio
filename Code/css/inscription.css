@@ -1,0 +1,126 @@
+/* Styles de base pour le corps de la page - thème sombre */
+body {
+    background-color: #121826; /* Fond sombre */
+    color: #fff; /* Texte blanc */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Champs de formulaire avec style sombre et animation au focus */
+.form-input {
+    background-color: #1f2937; /* Fond sombre pour les inputs */
+    color: #fff; /* Texte blanc */
+    border: 1px solid #4b5563; /* Bordure grise */
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-input:focus {
+    border-color: #f59e0b; /* Bordure dorée au focus */
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3); /* Halo doré au focus */
+}
+
+/* Bouton principal avec couleur dorée */
+.button-primary {
+    background-color: #f59e0b; /* Fond doré */
+    color: #000; /* Texte noir pour contraste */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button-primary:hover {
+    background-color: #d97706; /* Doré plus foncé au survol */
+    transform: translateY(-2px); /* Effet d'élévation au survol */
+}
+
+/* Bouton secondaire avec couleur grise */
+.button-secondary {
+    background-color: #4b5563; /* Fond gris */
+    color: #fff; /* Texte blanc */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button-secondary:hover {
+    background-color: #374151; /* Gris plus foncé au survol */
+    transform: translateY(-2px); /* Effet d'élévation au survol */
+}
+
+/* Conteneur pour le champ de mot de passe avec bouton toggle */
+.password-container {
+    position: relative;
+}
+
+/* Bouton pour afficher/masquer le mot de passe */
+.password-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af; /* Couleur gris clair */
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.password-toggle:hover {
+    color: #f59e0b; /* Couleur dorée au survol */
+}
+
+/* Indicateur de force du mot de passe */
+.password-strength {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    transition: color 0.3s;
+}
+
+/* Variations de couleur selon la force du mot de passe */
+.strength-weak {
+    color: #ef4444; /* Rouge pour mot de passe faible */
+}
+
+.strength-medium {
+    color: #f59e0b; /* Doré pour mot de passe moyen */
+}
+
+.strength-strong {
+    color: #10b981; /* Vert pour mot de passe fort */
+}
+
+/* Style des notifications système */
+.notification {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Notification d'erreur en rouge */
+.notification-error {
+    background-color: rgba(239, 68, 68, 0.2); /* Fond rouge semi-transparent */
+    border: 1px solid #ef4444; /* Bordure rouge */
+}
+
+/* Notification de succès en vert */
+.notification-success {
+    background-color: rgba(16, 185, 129, 0.2); /* Fond vert semi-transparent */
+    border: 1px solid #10b981; /* Bordure verte */
+}
+
+/* Conteneur d'icône avec fond semi-transparent pour notifications */
+.icon-container {
+    background-color: rgba(255, 255, 255, 0.2); /* Fond blanc semi-transparent */
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+}

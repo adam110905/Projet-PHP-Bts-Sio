@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Métadonnées de base -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réalisation - Allopro</title>
+    
+    <!-- Feuilles de style externes -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.7/swiper-bundle.min.css" rel="stylesheet">
+    
+    <!-- Scripts externes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js"></script>
+    
+    <!-- Feuille de style personnalisée -->
+    <link rel="stylesheet" href="../../css/index.css">
+</head>
+<body class="bg-gray-900">
+    <!-- Barre de navigation fixe avec effet de dégradé -->
+    <nav class="gradient-nav fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <!-- Logo de l'entreprise -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#test"><span class="text-3xl font-bold text-yellow-500">ALLOPRO</span></a>
+                </div>
+                
+                <!-- Liens de navigation pour desktop (masqués sur mobile) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../offline/index.html" class="nav-link text-gray-100 hover:text-yellow-500 px-3 py-6 font-medium transition-colors">Accueil</a>
+                    <a href="../offline/Portfolio.html" class="nav-link text-gray-100 hover:text-yellow-500 px-3 py-6 font-medium transition-colors">Portfolio</a>
+                    <a href="../offline/Realisation.html" class="nav-link text-gray-100 hover:text-yellow-500 px-3 py-6 font-medium transition-colors">Réalisations</a>
+                    <a href="../offline/Contact.html" class="nav-link text-gray-100 hover:text-yellow-500 px-3 py-6 font-medium transition-colors">Contact</a>
+                </div>
+                
+                <!-- Bouton de connexion (version desktop) -->
+                <div class="hidden md:flex items-center">
+                    <a href="../online/connexion/connexion.php" 
+                       class="bg-yellow-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-yellow-600 transition-all duration-300">
+                        Connexion
+                    </a>
+                </div>
+                
+                <!-- Bouton hamburger pour menu mobile -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-100 hover:text-yellow-500 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <!-- Icône hamburger (trois barres) -->
+                            <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <!-- Icône X pour fermer (masquée par défaut) -->
+                            <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu mobile (masqué par défaut) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full bg-gray-900 shadow-lg border-t border-gray-800">
+            <div class="px-4 py-6 space-y-4">
+                <!-- Liens de navigation mobile -->
+                <a href="../offline/index.html" class="block text-gray-100 hover:text-yellow-500 font-medium px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors">Accueil</a>
+                <a href="../offline/Portfolio.html" class="block text-gray-100 hover:text-yellow-500 font-medium px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors">Portfolio</a>
+                <a href="../offline/Realisation.html" class="block text-gray-100 hover:text-yellow-500 font-medium px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors">Réalisations</a>
+                <a href="../offline/Contact.html" class="block text-gray-100 hover:text-yellow-500 font-medium px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors">Contact</a>
+                
+                <!-- Bouton de connexion (version mobile) -->
+                <div class="mt-6">
+                    <a href="../online/connexion/connexion.php" 
+                       class="block w-full bg-yellow-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-yellow-600 transition-all duration-300 text-center">
+                        Connexion
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Overlay semi-transparent pour le fond quand le menu mobile est ouvert -->
+    <div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Section du carrousel de réalisations - avec marge pour la navbar fixe -->
+    <div class="pt-32 pb-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <!-- En-tête de section avec titre et séparateur -->
+            <div class="text-center mb-16">
+                <span class="text-yellow-500 font-medium mb-4 block">NOS PROJETS</span>
+                <h1 class="text-4xl font-bold text-white mb-6">Nos Réalisations</h1>
+                <!-- Séparateur décoratif -->
+                <div class="w-24 h-1 bg-yellow-500 mx-auto mt-8 opacity-50"></div>
+            </div>
+
+            <!-- Conteneur du carrousel personnalisé -->
+            <div class="relative">
+                <!-- Cadre principal du carrousel avec fond et ombre -->
+                <div class="carousel-container bg-gray-800 shadow-2xl">
+                    <!-- Piste de défilement des diapositives (slides) -->
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Note: Les slides seront générés dynamiquement par JavaScript (carousel.js) -->
+                    </div>
+
+                    <!-- Boutons de navigation (précédent/suivant) -->
+                    <button id="prevBtn" class="carousel-button left-4">
+                        <!-- Icône flèche gauche -->
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <button id="nextBtn" class="carousel-button right-4">
+                        <!-- Icône flèche droite -->
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Indicateurs de position (points de navigation) -->
+                <div class="flex justify-center gap-2 mt-8" id="indicators">
+                    <!-- Note: Les indicateurs seront générés dynamiquement par JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pied de page avec informations de contact -->
+    <footer class="footer py-12 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Grille responsive - 1 colonne sur mobile, 4 sur desktop -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <!-- Colonne 1: À propos -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">ALLOPRO</h3>
+                    <p class="text-gray-400">Votre partenaire de confiance pour tous vos projets de construction et rénovation.</p>
+                </div>
+                
+                <!-- Colonne 2: Services -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Services</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#" class="hover:text-yellow-500 transition-colors">Construction</a></li>
+                        <li><a href="#" class="hover:text-yellow-500 transition-colors">Rénovation</a></li>
+                        <li><a href="#" class="hover:text-yellow-500 transition-colors">Expertise</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Colonne 3: Coordonnées -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Contact</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li>123 Rue de la Construction</li>
+                        <li>75000 Paris, France</li>
+                        <li>+33 1 23 45 67 89</li>
+                        <li>contact@allopro.fr</li>
+                    </ul>
+                </div>
+                
+                <!-- Colonne 4: Réseaux sociaux -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Suivez-nous</h4>
+                    <div class="flex space-x-4">
+                        <!-- Icône Facebook avec animation au survol -->
+                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-yellow-500 transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Séparateur et copyright -->
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ALLOPRO. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+<!-- Scripts JavaScript pour la fonctionnalité du carrousel et du menu mobile -->
+<script src="../../js/carousel.js"></script> <!-- Script personnalisé pour le carrousel -->
+<script src="../../js/navbarmobile.js"></script> <!-- Script pour le menu mobile responsive -->
+</html>

@@ -1,0 +1,37 @@
+/* Styles de la scrollbar pour le popup d'historique des commandes */
+#orderHistoryContent {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(245, 158, 11, 0.5) rgba(31, 41, 55, 0.3);
+    max-height: calc(80vh - 64px);
+    overflow-y: auto;
+}
+
+/* Pour Chrome, Edge et Safari */
+#orderHistoryContent::-webkit-scrollbar {
+    width: 8px;
+}
+
+#orderHistoryContent::-webkit-scrollbar-track {
+    background-color: rgba(31, 41, 55, 0.3);
+    border-radius: 4px;
+}
+
+#orderHistoryContent::-webkit-scrollbar-thumb {
+    background-color: rgba(245, 158, 11, 0.5);
+    border-radius: 4px;
+}
+
+#orderHistoryContent::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(245, 158, 11, 0.7);
+}
+
+/* Assurer que la hauteur du modal est correcte sur les petits écrans */
+@media (max-height: 700px) {
+    #orderHistoryModal > div:nth-child(2) {
+        max-height: 90vh;
+    }
+    
+    #orderHistoryContent {
+        max-height: calc(90vh - 64px);
+    }
+}
