@@ -180,20 +180,6 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 password_verify($inputPassword, $storedHash);
 ```
 
-## 📸 Aperçu du Projet
-
-> 💡 **Suggestion** : Ajoutez des captures d'écran ici
-```markdown
-### Page d'accueil
-![Accueil](screenshots/home.png)
-
-### Catalogue produits
-![Catalogue](screenshots/products.png)
-
-### Interface administrateur
-![Admin](screenshots/admin.png)
-```
-
 ## 🚀 Améliorations Futures
 
 - [ ] Système de paiement en ligne (Stripe, PayPal)
