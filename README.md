@@ -234,7 +234,7 @@ Ce projet a été développé dans un cadre pédagogique (BTS SIO).
 ## 📞 Contact
 
 Pour toute question ou suggestion :
-- GitHub : [@adam110905](https://github.com/adam110905)
+- Linkedin : [@Adam Bouali](https://www.linkedin.com/in/adam-b-069640329/)
 
 ---
 
